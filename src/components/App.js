@@ -1,18 +1,19 @@
+import { useState } from "react";
 import video from "../data/video.js";
+import VideoPage from "./VideoPage.js";
+import CommentsPage from "./CommentsPage.js";
 
 function App() {
-  console.log("Here's your data:", video);
+  const [hideComments, setHideComments] = useState(false)
+
+  function handleHideComments(){
+    setHideComments(hideComments => !hideComments)
+  }
 
   return (
     <div className="App">
-      <iframe
-        width="919"
-        height="525"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        frameBorder="0"
-        allowFullScreen
-        title="Thinking in React"
-      />
+      <VideoPage video={video} onHideComments={handleHideComments}/>
+       {hideComments ? null : <CommentsPage comments={video.comments} /> }
     </div>
   );
 }
